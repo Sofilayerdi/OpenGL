@@ -48,7 +48,7 @@ isRunning = True
 
 while isRunning:
 
-	deltaTime = clock.tick(60) / 1000
+	deltaTime = clock.tick(30) / 1000
 
 	rend.elapsedTime += deltaTime
 
@@ -84,11 +84,11 @@ while isRunning:
 				rend.SetShaders(currVertexShader, currFragmentShader)
 
 			if event.key == pygame.K_8:
-				currVertexShader = fat_shader
+				currFragmentShader = outline_shader
 				rend.SetShaders(currVertexShader, currFragmentShader)
 
 			if event.key == pygame.K_9:
-				currVertexShader = water_shader
+				currFragmentShader = pulse_shader
 				rend.SetShaders(currVertexShader, currFragmentShader)
 
 
@@ -132,6 +132,7 @@ while isRunning:
 	if keys[K_x]:
 		if rend.value < 1.0:
 			rend.value += 1 * deltaTime
+
 
 
 
