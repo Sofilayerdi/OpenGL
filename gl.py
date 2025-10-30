@@ -33,6 +33,9 @@ class Renderer(object):
 
         self.value = 0.0;
         self.elapsedTime = 0.0;
+    
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
 
 

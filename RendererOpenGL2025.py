@@ -23,7 +23,7 @@ clock = pygame.time.Clock()
 rend = Renderer(screen)
 rend.pointLight = glm.vec3(1,1,1)
 
-currVertexShader = vertex_shader
+currVertexShader = vertex_shader 
 currFragmentShader = fragment_shader
 
 rend.SetShaders(currVertexShader, currFragmentShader)
@@ -48,7 +48,7 @@ isRunning = True
 
 while isRunning:
 
-	deltaTime = clock.tick(30) / 1000
+	deltaTime = clock.tick(60) / 1000
 
 	rend.elapsedTime += deltaTime
 
@@ -59,39 +59,44 @@ while isRunning:
 			isRunning = False
 
 		elif event.type == pygame.KEYDOWN:
+			
 			if event.key == pygame.K_f:
 				rend.ToggleFilledMode()
 
 			if event.key == pygame.K_1:
-				currFragmentShader = fragment_shader
-				rend.SetShaders(currVertexShader, currFragmentShader)
-
-			if event.key == pygame.K_2:
-				currFragmentShader = toon_shader
-				rend.SetShaders(currVertexShader, currFragmentShader)
-
-			if event.key == pygame.K_3:
-				currFragmentShader = negative_shader
-				rend.SetShaders(currVertexShader, currFragmentShader)
-
-			if event.key == pygame.K_4:
-				currFragmentShader = magma_shader
-				rend.SetShaders(currVertexShader, currFragmentShader)
-
-
-			if event.key == pygame.K_7:
 				currVertexShader = vertex_shader
 				rend.SetShaders(currVertexShader, currFragmentShader)
 
-			if event.key == pygame.K_8:
+			if event.key == pygame.K_2:
+				currVertexShader = melt_shader
+				rend.SetShaders(currVertexShader, currFragmentShader)
+
+			if event.key == pygame.K_3:
+				currVertexShader = twist_shader
+				rend.SetShaders(currVertexShader, currFragmentShader)
+
+			if event.key == pygame.K_4:
+				currVertexShader = explode_shader
+				rend.SetShaders(currVertexShader, currFragmentShader)
+
+			if event.key == pygame.K_5:
+				currFragmentShader = fragment_shader
+				rend.SetShaders(currVertexShader, currFragmentShader)
+
+			if event.key == pygame.K_6:
 				currFragmentShader = outline_shader
 				rend.SetShaders(currVertexShader, currFragmentShader)
 
-			if event.key == pygame.K_9:
-				currFragmentShader = pulse_shader
+			if event.key == pygame.K_7:
+				currFragmentShader = frozen_shader
+				rend.SetShaders(currVertexShader, currFragmentShader)
+
+			if event.key == pygame.K_8:
+				currFragmentShader = bubble_shader
 				rend.SetShaders(currVertexShader, currFragmentShader)
 
 
+	# CONTROLES DE CÁMARA
 	if keys[K_UP]:
 		rend.camera.position.z += 1 * deltaTime
 
@@ -104,8 +109,7 @@ while isRunning:
 	if keys[K_LEFT]:
 		rend.camera.position.x -= 1 * deltaTime
 
-
-
+	# CONTROLES DE LUZ
 	if keys[K_w]:
 		rend.pointLight.z -= 10 * deltaTime
 
@@ -118,13 +122,13 @@ while isRunning:
 	if keys[K_d]:
 		rend.pointLight.x += 10 * deltaTime
 
-	if keys[K_q]:
+	if keys[K_KP_MINUS] or keys[K_MINUS]:
 		rend.pointLight.y -= 10 * deltaTime
 
-	if keys[K_e]:
+	if keys[K_KP_PLUS] or keys[K_EQUALS]:
 		rend.pointLight.y += 10 * deltaTime
 
-
+	# CONTROL DE VALUE (intensidad de efectos)
 	if keys[K_z]:
 		if rend.value > 0.0:
 			rend.value -= 1 * deltaTime
@@ -133,11 +137,8 @@ while isRunning:
 		if rend.value < 1.0:
 			rend.value += 1 * deltaTime
 
-
-
-
+	# Rotación automática del modelo
 	faceModel.rotation.y += 45 * deltaTime
-
 
 	rend.Render()
 	pygame.display.flip()
