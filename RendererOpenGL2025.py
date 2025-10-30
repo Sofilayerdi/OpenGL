@@ -96,7 +96,6 @@ while isRunning:
 				rend.SetShaders(currVertexShader, currFragmentShader)
 
 
-	# CONTROLES DE CÁMARA
 	if keys[K_UP]:
 		rend.camera.position.z += 1 * deltaTime
 
@@ -109,7 +108,6 @@ while isRunning:
 	if keys[K_LEFT]:
 		rend.camera.position.x -= 1 * deltaTime
 
-	# CONTROLES DE LUZ
 	if keys[K_w]:
 		rend.pointLight.z -= 10 * deltaTime
 
@@ -128,7 +126,6 @@ while isRunning:
 	if keys[K_KP_PLUS] or keys[K_EQUALS]:
 		rend.pointLight.y += 10 * deltaTime
 
-	# CONTROL DE VALUE (intensidad de efectos)
 	if keys[K_z]:
 		if rend.value > 0.0:
 			rend.value -= 1 * deltaTime
@@ -137,7 +134,6 @@ while isRunning:
 		if rend.value < 1.0:
 			rend.value += 1 * deltaTime
 
-	# Rotación automática del modelo
 	faceModel.rotation.y += 45 * deltaTime
 
 	rend.Render()
