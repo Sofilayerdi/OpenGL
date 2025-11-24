@@ -19,17 +19,21 @@ CONTROLES
 TAB / 1–5  -> Cambiar modelo enfocado
 H          -> Cambiar shader
 R          -> Reset shaders
-
 Z / X      -> Aumentar y reducir animación 
-
 Mouse drag / flechas derecha e izquierda -> Orbitar 
 Mouse wheel / flechas arriba y abajo -> Zoom
-
 W / S      -> Subir y bajar 
 Q / E      -> Ajustar elevación
+P          -> Pausar música
+O          -> Reanudar música
 """
 
 
+pygame.mixer.init()
+
+pygame.mixer.music.load("music.mp3")
+pygame.mixer.music.set_volume(0.6)                
+pygame.mixer.music.play(-1)
 
 width = 960
 height = 540
@@ -259,7 +263,12 @@ while isRunning:
             if event.key == pygame.K_h:
                 for config in modelConfigs:
                     config.nextPreset()
-        
+
+            if event.key == pygame.K_p:
+                pygame.mixer.music.pause()
+            
+            if event.key == pygame.K_o:
+                pygame.mixer.music.unpause()
             
             if event.key == pygame.K_r:
                 for config in modelConfigs:
