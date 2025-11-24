@@ -14,6 +14,8 @@ class Model(object):
 		self.rotation = glm.vec3(0,0,0)
 		self.scale = glm.vec3(1,1,1)
 
+		self.visible = True
+
 		self.BuildBuffers()
 
 		self.textures = []
@@ -113,6 +115,8 @@ class Model(object):
 
 
 	def Render(self):
+		if not self.visible:
+			return
 
 		# Dar la textura
 		for i in range(len(self.textures)):

@@ -1,4 +1,3 @@
-
 class Obj(object):
 	def __init__(self, filename):
 		# Asumiendo que el archivo es un formato .obj
@@ -25,7 +24,7 @@ class Obj(object):
 			# la informacion en el contenedor correcto
 			
 			if prefix == "v": # Vertices
-				vert = list(map(float,value.split(" ")))
+				vert = list(map(float, filter(None, value.split(" "))))
 				self.vertices.append(vert)
 				
 			elif prefix == "vt": # Coordenadas de textura
@@ -36,10 +35,27 @@ class Obj(object):
 				norm = list(map(float,value.split(" ")))
 				self.normals.append(norm)
 				
-			elif prefix == "f": # Caras
+			elif prefix == "f":  # Caras
 				face = []
-				verts = value.split(" ")
+				verts = value.split()
 				for vert in verts:
-					vert = list(map(int, vert.split("/")))
-					face.append(vert)
-				self.faces.append(face)                                                                                                                                                                                                                                                                                                                                                                                           
+					if not vert:
+						continue
+
+					parts = vert.split("/")
+
+					v = int(parts[0]) if parts[0] != "" else 0
+
+					if len(parts) > 1 and parts[1] != "":
+						vt = int(parts[1])
+					else:
+						vt = 0  # 0 = sin UV
+
+					if len(parts) > 2 and parts[2] != "":
+						vn = int(parts[2])
+					else:
+						vn = 0  # 0 = sin normal
+
+					face.append([v, vt, vn])
+
+				self.faces.append(face)
